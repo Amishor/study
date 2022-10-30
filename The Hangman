@@ -1,0 +1,69 @@
+import random
+
+wins = 0
+defeats = 0
+
+
+def the_menu():
+    while True:
+        the_call = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+        if the_call == 'play':
+            the_game()
+        elif the_call == 'results':
+            the_results()
+        elif the_call == 'exit':
+            quit()
+        else:
+            pass
+
+
+def the_game():
+    my_list = ['python', 'java', 'swift', 'javascript']
+    random_word = random.choice(my_list)
+    letter_set = set()
+    tries = 0
+    global wins
+    global defeats
+
+    while tries < 8:
+        result = ''.join(['-' if c not in letter_set else c for c in list(random_word)])
+
+        if result == str(random_word):
+            print(result)
+            print(f'You guessed the word {result}!')
+            print('You survived!')
+            wins += 1
+            the_menu()
+            break
+        else:
+            print('')
+            print(result)
+            letter = input("Input a letter: ")
+
+            if len(letter) != 1:
+                print('Please, input a single letter.')
+            elif letter.isupper() or letter.isalpha() is False:
+                print('Please, enter a lowercase letter from the English alphabet.')
+            elif letter in letter_set:
+                print('You\'ve already guessed this letter.')
+            elif letter not in random_word:
+                print("That letter doesn't appear in the word.")
+                tries += 1
+
+            letter_set.add(letter)
+
+    else:
+        print()
+        print('You lost!')
+        defeats += 1
+        the_menu()
+
+
+def the_results():
+    print(f'You won: {wins} times')
+    print(f'You lost: {defeats} times')
+    the_menu()
+
+
+print('H', 'A', 'N', 'G', 'M', 'A', 'N')
+the_menu()
