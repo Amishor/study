@@ -1,0 +1,73 @@
+if __name__ == '__main__':
+    x = '_________'
+    x = [[x[0], x[1], x[2]], [x[3], x[4], x[5]], [x[6], x[7], x[8]]]
+    letters_won = []
+    step_counter = 0
+
+    def print_the_grid():
+        print("---------")
+        print('|', x[0][0], x[0][1], x[0][2], '|')
+        print('|', x[1][0], x[1][1], x[1][2], '|')
+        print('|', x[2][0], x[2][1], x[2][2], '|')
+        print("---------")
+
+
+    def the_game():
+        coordinates = input().split()
+        try:
+            coordinates[0] = int(coordinates[0])
+            coordinates[1] = int(coordinates[1])
+        except (ValueError, IndexError):
+            print('You should enter numbers!')
+            the_game()
+        else:
+            if coordinates[0] not in [1, 2, 3] or coordinates[1] not in [1, 2, 3]:
+                print('Coordinates should be from 1 to 3!')
+                the_game()
+            else:
+                def the_placing():
+                    global step_counter
+                    if x[coordinates[0] - 1][coordinates[1] - 1] != '_':
+                        print('This cell is occupied! Choose another one!')
+                        the_game()
+                    else:
+                        step_counter += 1
+                        if step_counter % 2 != 0:
+                            x[coordinates[0] - 1][coordinates[1] - 1] = 'X'
+                            print_the_grid()
+                            the_result()
+                        elif step_counter % 2 == 0:
+                            x[coordinates[0] - 1][coordinates[1] - 1] = 'O'
+                            print_the_grid()
+                            the_result()
+                the_placing()
+
+
+    def the_result():
+        if x[0][0] != '_':
+            if x[0][0] == x[0][1] == x[0][2] or x[0][0] == x[1][1] == x[2][2] or x[0][0] == x[1][0] == x[2][0]:
+                letters_won.append(x[0][0])
+        if x[0][1] != '_':
+            if x[0][1] == x[1][1] == x[2][1]:
+                letters_won.append(x[0][1])
+        if x[0][2] != '_':
+            if x[0][2] == x[1][2] == x[2][2] or x[0][2] == x[1][1] == x[2][0]:
+                letters_won.append(x[0][2])
+        if x[1][0] != '_':
+            if x[1][0] == x[1][1] == x[1][2]:
+                letters_won.append(x[1][0])
+        if x[2][0] != '_':
+            if x[2][0] == x[2][1] == x[2][2]:
+                letters_won.append(x[2][0])
+        if len(letters_won) == 0:
+            if step_counter == 9:
+                print('Draw')
+                quit()
+            elif step_counter < 9:
+                the_game()
+        elif len(letters_won) == 1:
+            print(f'{letters_won[0]} wins')
+
+
+    print_the_grid()
+    the_game()
