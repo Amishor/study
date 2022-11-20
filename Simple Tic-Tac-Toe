@@ -4,6 +4,7 @@ if __name__ == '__main__':
     letters_won = []
     step_counter = 0
 
+
     def print_the_grid():
         print("---------")
         print('|', x[0][0], x[0][1], x[0][2], '|')
