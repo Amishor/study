@@ -6,8 +6,7 @@ def the_calc():
             the_calc()
         elif i.isnumeric():
             pass
-    else:
-        print(eval(formula))
+    print(eval(formula))
 
 
 the_calc()
