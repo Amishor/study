@@ -1,3 +1,5 @@
+# so as to avoid crashing the calc like print(eval(input())) if a letter appears in the equation
+
 def the_calc():
     formula = input()
     for i in formula:
